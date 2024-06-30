@@ -1,5 +1,6 @@
 services:
   database:
+    container_name: postgres_dev
     image: postgres
     environment:
       POSTGRES_PASSWORD: mypassword
