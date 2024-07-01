@@ -5,20 +5,20 @@ const app = express()
 
 const sequelize = new Sequelize(process.env.DATABASE_URL);
 
-//const dbConnect = async () => {
-//  try {
-//    await sequelize.authenticate()
-//    console.log('Connected to Postgres.')
+const dbConnect = async () => {
+  try {
+    await sequelize.authenticate()
+    console.log('Connected to Postgres')
 //    const blogs = await sequelize.query("SELECT * FROM blogs", { type: QueryTypes.SELECT })
 //    blogs.forEach(blog => {
 //      console.log(`${blog.author}: '${blog.title}', ${blog.likes} likes`)
 //    })
 //    console.log(blogs)
 //    sequelize.close()
-//  } catch (error) {
-//    console.error('Unable to connect to the Postgres', error)
-//  }
-//}
+  } catch (error) {
+    console.error('Unable to connect to Postgres', error)
+  }
+}
 
 class Blog extends Model {}
 Blog.init({
@@ -74,7 +74,7 @@ app.delete('/api/blogs/:id', async (req, res) => {
   } else {
     await Blog.destroy({
       where: {
-        id: `${blog.id}`
+        id: blog.id
       }
     })
     console.log('Blog was deleted')
@@ -83,6 +83,8 @@ app.delete('/api/blogs/:id', async (req, res) => {
 })
 
 const PORT = process.env.PORT || 3001
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+dbConnect().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+  })
 })
