@@ -5,20 +5,20 @@ const app = express()
 
 const sequelize = new Sequelize(process.env.DATABASE_URL);
 
-const dbConnect = async () => {
-  try {
-    await sequelize.authenticate()
-    console.log('Connected to Postgres.')
-    //const blogs = await sequelize.query("SELECT * FROM blogs", { type: QueryTypes.SELECT })
-    //blogs.forEach(blog => {
-    //  console.log(`${blog.author}: '${blog.title}', ${blog.likes} likes`)
-    //})
-    //console.log(blogs)
-    //sequelize.close()
-  } catch (error) {
-    console.error('Unable to connect to the Postgres', error)
-  }
-}
+//const dbConnect = async () => {
+//  try {
+//    await sequelize.authenticate()
+//    console.log('Connected to Postgres.')
+//    const blogs = await sequelize.query("SELECT * FROM blogs", { type: QueryTypes.SELECT })
+//    blogs.forEach(blog => {
+//      console.log(`${blog.author}: '${blog.title}', ${blog.likes} likes`)
+//    })
+//    console.log(blogs)
+//    sequelize.close()
+//  } catch (error) {
+//    console.error('Unable to connect to the Postgres', error)
+//  }
+//}
 
 class Blog extends Model {}
 Blog.init({
@@ -49,6 +49,8 @@ Blog.init({
   modelName: 'blog'
 })
 
+Blog.sync()
+
 app.get('/api/blogs', async (req, res) => {
   const blogs = await Blog.findAll()
   res.json(blogs)
@@ -56,8 +58,16 @@ app.get('/api/blogs', async (req, res) => {
 
 app.use(express.json())
 
-const PORT = process.env.PORT || 3001
+app.post('/api/blogs', async (req, res) => {
+  try {
+    const blog = await Blog.create(req.body)
+    return res.json(blog)
+  } catch (error) {
+    return res.status(400).json({ error })
+  }
+})
 
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
