@@ -11,3 +11,6 @@ Content-Type: application/json
     "title": "Forever king",
     "likes": "4"
 }
+
+###
+DELETE http://localhost:3001/api/blogs/1
