@@ -10,5 +10,5 @@ INSERT INTO blogs (author, url, title) values ('Martin', 'www.martin.com', 'Live
 INSERT INTO blogs (author, url, title, likes) values ('Luter', 'www.luter.com', 'Luter from UK', '12');
 SELECT * FROM blogs;
 
-INSERT INTO users (username, name) values ('Heikki', 'Helicopter');
+INSERT INTO users (username, name) values ('fvsdf@fgbfgb.com', 'Heikki');
 SELECT * FROM users;
