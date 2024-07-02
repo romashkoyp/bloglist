@@ -71,3 +71,13 @@ Content-Type: application/json
 {
   "username": "Angel"
 }
+
+### Log in
+POST http://localhost:3001/api/login/
+Content-Type: application/json
+
+{
+    "username": "heiki@friend.com",
+    "name": "Isompinen",
+    "password": "mypassword"
+}

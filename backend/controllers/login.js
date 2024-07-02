@@ -16,9 +16,8 @@ router.post('/', async (req, res) => {
   const passwordCorrect = body.password === 'mypassword'
 
   if (!(user && passwordCorrect)) {
-    return res.status(401).json({
-      error: 'invalid username or password'
-    })
+    throw new Error('invalid username or password')
+    //res.status(401).json({error: 'invalid username or password'})
   }
 
   const userForToken = {
