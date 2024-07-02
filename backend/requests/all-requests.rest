@@ -4,12 +4,14 @@ GET http://localhost:3001/api/blogs
 ###
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhlaWtpQGZyaWVuZC5jb20iLCJpZCI6MSwiaWF0IjoxNzE5OTMxOTg2fQ.ChKv6DbDF3LKdBtiIDccvGNsdD5uy6i2-g-Z4y2VyYc
 
 {
     "author": "King",
     "url": "www.king.com",
     "title": "Forever king",
-    "likes": "4"
+    "likes": "4",
+    "userId": "1"
 }
 
 ### Validation error checking (expected "error": "notNull Violation...)
