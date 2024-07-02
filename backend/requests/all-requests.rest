@@ -12,14 +12,33 @@ Content-Type: application/json
     "likes": "4"
 }
 
-###
-DELETE http://localhost:3001/api/blogs/5
-
-###
-
-PUT http://localhost:3001/api/blogs/38
+### Validation error checking (expected "error": "notNull Violation...)
+POST http://localhost:3001/api/blogs
 Content-Type: application/json
 
 {
-    "likes": 50
+    "author": "King",
+    "likes": "4"
+}
+
+### Delete a Non-Existent Blog Post (expected "error": "Blog not found")
+DELETE http://localhost:3001/api/blogs/7456
+
+### Wrong ID
+DELETE http://localhost:3001/api/blogs/dgbdfgbfbfg
+
+### Send a Non-Existent Blog Post (expected "error": "Blog not found")
+PUT http://localhost:3001/api/blogs/7456
+Content-Type: application/json
+
+{
+    "likes": 73
+}
+
+### Send new likes without likes (expected "error": "")
+PUT http://localhost:3001/api/blogs/43
+Content-Type: application/json
+
+{
+  "likes": "dfgbfgd"
 }
