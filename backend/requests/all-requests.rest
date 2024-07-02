@@ -42,3 +42,24 @@ Content-Type: application/json
 {
   "likes": "dfgbfgd"
 }
+
+### Add new user
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username": "Maria",
+    "name": "Pitkunen"
+}
+
+### Add another new user
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username": "Heikki",
+    "name": "Isompinen"
+}
+
+### Get all users
+GET http://localhost:3001/api/users
