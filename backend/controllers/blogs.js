@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
     console.log(blog.toJSON())
     res.status(201).json(blog)
   } else {
-    res.status(400).end()
+    res.status(400).json({ error })
   }
 })
 
