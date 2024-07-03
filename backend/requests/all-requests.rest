@@ -4,6 +4,9 @@ GET http://localhost:3001/api/blogs
 ### Get all users
 GET http://localhost:3001/api/users
 
+### Get authors
+GET http://localhost:3001/api/authors
+
 ### Search word react in the title field
 GET http://localhost:3001/api/blogs?search=king
 
