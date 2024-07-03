@@ -27,11 +27,20 @@ router.get('/', async (req, res) => {
   //console.log(req.query)
   //console.log(req.query.search)
   if (req.query.search) {
-    where.title = {
-      [Op.iRegexp]: `\\m${req.query.search}\\M`
-    }
+    where[Op.or] = [
+      {
+        title: {
+          [Op.iRegexp]: `\\m${req.query.search}\\M`
+        }
+      },
+      {
+        author: {
+          [Op.iRegexp]: `\\m${req.query.search}\\M`
+        }
+      }
+    ]
   }
-
+  
   const blogs = await Blog.findAll({
     attributes: { exclude: ['userId'] },
     include: {
@@ -40,6 +49,7 @@ router.get('/', async (req, res) => {
     },
     where
   })
+
   if (Array.isArray(blogs) && blogs.length !== 0) {
     res.json(blogs)
   } else {
