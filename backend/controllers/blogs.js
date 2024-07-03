@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const { Blog, User } = require('../models')
 const { Op } = require('sequelize')
+const { sequelize } = require('../util/db')
 const { tokenExtractor } = require('../util/middleware')
 
 const blogFinder = async (req, res, next) => {
@@ -47,7 +48,8 @@ router.get('/', async (req, res) => {
       model: User,
       attributes: ['name']
     },
-    where
+    where,
+    order: [['likes', 'DESC']]
   })
 
   if (Array.isArray(blogs) && blogs.length !== 0) {
