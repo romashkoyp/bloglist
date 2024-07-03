@@ -1,6 +1,9 @@
 ###
 GET http://localhost:3001/api/blogs
 
+### Search word react in the title field
+GET http://localhost:3001/api/blogs?search=king
+
 ###
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
@@ -9,7 +12,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imhla
 {
     "author": "King",
     "url": "www.king.com",
-    "title": "Forever king",
+    "title": "Foreverking",
     "likes": "4",
     "userId": "1"
 }
@@ -98,6 +101,7 @@ Content-Type: application/json
 DELETE http://localhost:3001/api/blogs/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhlaWtpQGZyaWVuZC5jb20iLCJpZCI6MSwiaWF0IjoxNzE5OTk3MDU1fQ.LIsX9aMjQ3QgKkYbTE303Ku9Nk5HAFGLRNyGzuWHDvY
 
-### 
+### Delete blog not by owner
 DELETE http://localhost:3001/api/blogs/2
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hcmlhQHNkZmRzZi5jb20iLCJpZCI6NCwiaWF0IjoxNzE5OTk3NzI1fQ.oMa06IXCd_tgdPllnyBrvye98u0xAT2Y8g0nOu9V1x8
+

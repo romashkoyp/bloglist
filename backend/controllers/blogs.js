@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const { Blog, User } = require('../models')
+const { Op } = require('sequelize')
 const { tokenExtractor } = require('../util/middleware')
 
 const blogFinder = async (req, res, next) => {
@@ -22,14 +23,28 @@ router.post('/', tokenExtractor, async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
+  const where = {}
+  //console.log(req.query)
+  //console.log(req.query.search)
+  if (req.query.search) {
+    where.title = {
+      [Op.iRegexp]: `\\m${req.query.search}\\M`
+    }
+  }
+
   const blogs = await Blog.findAll({
     attributes: { exclude: ['userId'] },
     include: {
       model: User,
       attributes: ['name']
-    }
+    },
+    where
   })
-  res.json(blogs)
+  if (Array.isArray(blogs) && blogs.length !== 0) {
+    res.json(blogs)
+  } else {
+    throw new Error ('No blogs found')
+  }
 })
 
 router.delete('/:id', blogFinder, tokenExtractor, async (req, res) => {
@@ -46,10 +61,14 @@ router.delete('/:id', blogFinder, tokenExtractor, async (req, res) => {
 })
 
 router.put('/:id', blogFinder, async (req, res) => {
-  req.blog.likes = req.body.likes
-  await req.blog.save()
-  res.json(req.blog)
-  console.log('Likes were updated')
+  if (req.blog) {
+    req.blog.likes = req.body.likes
+    await req.blog.save()
+    res.json(req.blog)
+    console.log('Likes updated')
+  } else {
+    throw new Error ('Oops, likes NOT updated')
+  }
 })
 
 module.exports = router
