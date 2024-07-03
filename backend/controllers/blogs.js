@@ -17,7 +17,7 @@ router.post('/', tokenExtractor, async (req, res) => {
     console.log(blog.toJSON())
     res.status(201).json(blog)
   } else {
-    res.status(400).json({ error })
+    throw new Error('Blog not created')
   }
 })
 
@@ -32,10 +32,17 @@ router.get('/', async (req, res) => {
   res.json(blogs)
 })
 
-router.delete('/:id', blogFinder, async (req, res) => {
-  await req.blog.destroy()
-  console.log('Blog was deleted')
-  res.status(204).end()
+router.delete('/:id', blogFinder, tokenExtractor, async (req, res) => {
+  const user = await User.findByPk(req.decodedToken.id)
+  //console.log(user.id)
+  //console.log(req.blog.userId)
+  if (req.blog.userId && req.blog.userId === user.id) {
+    await req.blog.destroy()
+    console.log('Blog was deleted')
+    res.status(204).end()
+  } else {
+    throw new Error ('Permission denied, you can delete only your own blogs')
+  }
 })
 
 router.put('/:id', blogFinder, async (req, res) => {
