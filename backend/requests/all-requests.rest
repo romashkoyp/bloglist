@@ -7,6 +7,47 @@ GET http://localhost:3001/api/users
 ### Get authors
 GET http://localhost:3001/api/authors
 
+### Add new user
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username": "maria@sdfdsf.com",
+    "name": "Pitkunen"
+}
+
+### Log in user
+POST http://localhost:3001/api/login/
+Content-Type: application/json
+
+{
+    "username": "maria@sdfdsf.com",
+    "name": "Pitkunen",
+    "password": "mypassword"
+}
+
+### Create new blog
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hcmlhQHNkZmRzZi5jb20iLCJpZCI6MSwiaWF0IjoxNzIwMDgzOTQ2fQ.SPTQh3NW_VCEZz69SiqtQnPhJp6fnrQLVoMTCV9z1zA
+
+{
+    "author": "King",
+    "url": "www.king.com",
+    "title": "Foreverking",
+    "likes": "4",
+    "year": 1991
+}
+
+### Add another new user
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username": "heiki@friend.com",
+    "name": "Isompinen"
+}
+
 ### Search word react in the title field
 GET http://localhost:3001/api/blogs?search=king
 
@@ -16,18 +57,6 @@ Content-Type: application/json
 
 {
     "likes": 73
-}
-
-###
-POST http://localhost:3001/api/blogs
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hcmlhQHNkZmRzZi5jb20iLCJpZCI6MSwiaWF0IjoxNzIwMDgxNzYwfQ.KeTKu_HhBpl_TdOEWzSD6-opuh-w3HcAX8L8Y8WYOhk
-
-{
-    "author": "King",
-    "url": "www.king.com",
-    "title": "Foreverking",
-    "likes": "4"
 }
 
 ### Validation error checking (expected "error": "notNull Violation...)
@@ -61,24 +90,6 @@ Content-Type: application/json
   "likes": "dfgbfgd"
 }
 
-### Add new user
-POST http://localhost:3001/api/users
-Content-Type: application/json
-
-{
-    "username": "maria@sdfdsf.com",
-    "name": "Pitkunen"
-}
-
-### Add another new user
-POST http://localhost:3001/api/users
-Content-Type: application/json
-
-{
-    "username": "heiki@friend.com",
-    "name": "Isompinen"
-}
-
 ### Change username for existing user
 PUT http://localhost:3001/api/users/maria
 Content-Type: application/json
@@ -87,25 +98,8 @@ Content-Type: application/json
   "username": "Angel"
 }
 
-### Log in user
-POST http://localhost:3001/api/login/
-Content-Type: application/json
 
-{
-    "username": "maria@sdfdsf.com",
-    "name": "Pitkunen",
-    "password": "mypassword"
-}
 
-### Log in Maria
-POST http://localhost:3001/api/login/
-Content-Type: application/json
-
-{
-    "username": "maria@sdfdsf.com",
-    "name": "Pitkunen",
-    "password": "mypassword"
-}
 ### Delete blog only by owner
 
 DELETE http://localhost:3001/api/blogs/1
