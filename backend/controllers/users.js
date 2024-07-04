@@ -10,6 +10,8 @@ router.get('/', async (req, res) => {
     }
   })
 
+  console.log(JSON.stringify(users, null, 2))
+
   if (Array.isArray(users) && users.length !== 0) {
     res.json(users)
   } else {
