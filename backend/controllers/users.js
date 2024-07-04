@@ -9,7 +9,12 @@ router.get('/', async (req, res) => {
       attributes: { exclude: ['userId'] }
     }
   })
-  res.json(users)
+
+  if (Array.isArray(users) && users.length !== 0) {
+    res.json(users)
+  } else {
+    throw new Error ('No users found')
+  }
 })
 
 router.post('/', async (req, res) => {
