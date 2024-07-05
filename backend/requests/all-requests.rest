@@ -29,14 +29,23 @@ Content-Type: application/json
 ### Create new blog
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hcmlhQHNkZmRzZi5jb20iLCJpZCI6MSwiaWF0IjoxNzIwMTAwNjM1fQ.FYO_vjuvY3vzY_iGnaeGXF5a17NHlyBorkRZBgq4ik8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hcmlhQHNkZmRzZi5jb20iLCJpZCI6MSwiaWF0IjoxNzIwMTY3NjcxfQ.hxst_bHDSOWX4Ik5fvFSfVfiIAfyUsYSnLmyZ78bEVM
 
 {
     "author": "King",
     "url": "www.king.com",
-    "title": "Foreverking",
+    "title": "Forever king",
     "likes": "4",
     "year": 1991
+}
+
+### Add blog to the reading list
+POST http://localhost:3001/api/readinglists
+Content-Type: application/json
+
+{
+  "blogId": 1,
+  "userId": 1
 }
 
 ### Add another new user
