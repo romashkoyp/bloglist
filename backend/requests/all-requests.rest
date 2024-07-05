@@ -4,8 +4,14 @@ GET http://localhost:3001/api/blogs
 ### Get all users
 GET http://localhost:3001/api/users
 
-### Get desired user
+### Get user's whole reading list
 GET http://localhost:3001/api/users/1
+
+### Get user's reading list with blogs were read
+GET http://localhost:3001/api/users/1?read=true
+
+### Get user's reading list with blogs were NOT read
+GET http://localhost:3001/api/users/1?read=false
 
 ### Get authors
 GET http://localhost:3001/api/authors
@@ -47,7 +53,7 @@ POST http://localhost:3001/api/readinglists
 Content-Type: application/json
 
 {
-  "blogId": 1,
+  "blogId": 2,
   "userId": 1
 }
 

@@ -24,9 +24,9 @@ router.post('/', tokenExtractor, async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
-  const where = {}
-  //console.log(req.query)
-  //console.log(req.query.search)
+  const where = {};
+  console.log(req.query)
+  console.log(req.query.search)
   if (req.query.search) {
     where[Op.or] = [
       {
