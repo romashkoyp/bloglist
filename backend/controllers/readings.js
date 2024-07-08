@@ -12,6 +12,10 @@ const readingFinder = async (req, res, next) => {
 
 router.put('/:id', tokenExtractor, readingFinder, async (req, res) => {
   const user = await User.findByPk(req.decodedToken.id)
+
+  if (user.disabled) {
+    throw new Error('Account disabled')
+  }
   //console.log(user.id)
   //console.log(req.reading)
   if (req.reading && req.reading.userId === user.id) {

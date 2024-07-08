@@ -26,7 +26,7 @@ Content-Type: application/json
 }
 
 ### Log in user
-POST http://localhost:3001/api/login/
+POST http://localhost:3001/api/login
 Content-Type: application/json
 
 {
@@ -35,10 +35,14 @@ Content-Type: application/json
     "password": "mypassword"
 }
 
+### Delete all user's sessions
+DELETE http://localhost:3001/api/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hcmlhQHNkZmRzZi5jb20iLCJpZCI6MSwiaWF0IjoxNzIwNDM3MTQ5fQ.wfwEU0K0rLkQH2cbAEn3fT-c159c6ufnvqb9BVWnP1Q
+
 ### Create new blog
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hcmlhQHNkZmRzZi5jb20iLCJpZCI6MSwiaWF0IjoxNzIwMTgwMDUwfQ.zXJLfp4uEV5OTnydpWOOxxuvMZl9EV7Y443nJcs08Yg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hcmlhQHNkZmRzZi5jb20iLCJpZCI6MSwiaWF0IjoxNzIwNDM4MDc2fQ.xRC3IvPHOvoeHd48D2rfKLISQTBzyCEdeCC2_Ii2o0Y
 
 {
     "author": "King",
@@ -53,14 +57,14 @@ POST http://localhost:3001/api/readinglists
 Content-Type: application/json
 
 {
-  "blogId": 2,
+  "blogId": 1,
   "userId": 1
 }
 
 ### Mark existing blog as read by blog's owner
 PUT http://localhost:3001/api/readinglists/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhlaWtpQGZyaWVuZC5jb20iLCJpZCI6MiwiaWF0IjoxNzIwMTg3MDkyfQ.UXCn_f2yMw_VPpm1RMmSI-6w6BE05Uzja7C6t__odtE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hcmlhQHNkZmRzZi5jb20iLCJpZCI6MSwiaWF0IjoxNzIwNDM2MzE5fQ.kMF1ka4YsdHuFoDe4ZrY-aDkeWtO_pGkDsnTuqgPyDE
 
 {
   "read": true
@@ -89,14 +93,14 @@ Content-Type: application/json
 GET http://localhost:3001/api/blogs?search=king
 
 ### Change likes
-PUT http://localhost:3001/api/blogs/3
+PUT http://localhost:3001/api/blogs/1
 Content-Type: application/json
 
 {
     "likes": 73
 }
 
-### Validation error checking (expected "error": "notNull Violation...)
+### Validation error checking
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
 
@@ -111,7 +115,7 @@ DELETE http://localhost:3001/api/blogs/7456
 ### Wrong ID
 DELETE http://localhost:3001/api/blogs/dgbdfgbfbfg
 
-### Send a Non-Existent Blog Post (expected "error": "Blog not found")
+### Send a Non-Existent Blog Post (invalid input syntax for type integer)
 PUT http://localhost:3001/api/blogs/7456
 Content-Type: application/json
 
@@ -119,8 +123,8 @@ Content-Type: application/json
     "likes": 73
 }
 
-### Send new likes without likes (expected "error": "")
-PUT http://localhost:3001/api/blogs/43
+### Send new likes without likes (invalid input syntax for type integer)
+PUT http://localhost:3001/api/blogs/1
 Content-Type: application/json
 
 {
@@ -128,18 +132,18 @@ Content-Type: application/json
 }
 
 ### Change username for existing user
-PUT http://localhost:3001/api/users/maria
+PUT http://localhost:3001/api/users/maria@sdfdsf.com
 Content-Type: application/json
 
 {
-  "username": "Angel"
+  "username": "angel@angel.com"
 }
 
 ### Delete blog only by owner
 DELETE http://localhost:3001/api/blogs/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhlaWtpQGZyaWVuZC5jb20iLCJpZCI6MSwiaWF0IjoxNzE5OTk3MDU1fQ.LIsX9aMjQ3QgKkYbTE303Ku9Nk5HAFGLRNyGzuWHDvY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hcmlhQHNkZmRzZi5jb20iLCJpZCI6MSwiaWF0IjoxNzIwNDM4MDc2fQ.xRC3IvPHOvoeHd48D2rfKLISQTBzyCEdeCC2_Ii2o0Y
 
 ### Delete blog not by owner
 DELETE http://localhost:3001/api/blogs/2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hcmlhQHNkZmRzZi5jb20iLCJpZCI6NCwiaWF0IjoxNzE5OTk3NzI1fQ.oMa06IXCd_tgdPllnyBrvye98u0xAT2Y8g0nOu9V1x8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hcmlhQHNkZmRzZi5jb20iLCJpZCI6MSwiaWF0IjoxNzIwNDM2MzE5fQ.kMF1ka4YsdHuFoDe4ZrY-aDkeWtO_pGkDsnTuqgPyDE
 

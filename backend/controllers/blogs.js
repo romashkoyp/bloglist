@@ -1,7 +1,7 @@
 const router = require('express').Router()
-const { Blog, User } = require('../models')
+const { Blog, User, Session } = require('../models')
 const { Op } = require('sequelize')
-const { sequelize } = require('../util/db')
+//const { sequelize } = require('../util/db')
 const { tokenExtractor } = require('../util/middleware')
 
 const blogFinder = async (req, res, next) => {
@@ -14,6 +14,29 @@ const blogFinder = async (req, res, next) => {
 
 router.post('/', tokenExtractor, async (req, res) => {
   const user = await User.findByPk(req.decodedToken.id)
+  //console.log(user.id)
+  const token = req.headers.authorization.substring(7)
+  //console.log(token)
+
+  if (!user) {
+    throw new Error('User not found')
+  }
+
+  if (user.disabled) {
+    throw new Error('Account disabled') 
+  }
+
+  const session = await Session.findOne({
+    where: {
+      userId: user.id,
+      token: token
+    }
+  })
+
+  if (!session) {
+    throw new Error('Session not found')
+  }
+
   const blog = await Blog.create({...req.body, userId: user.id, date: new Date()})
   if (blog) {
     console.log(blog.toJSON())
@@ -63,6 +86,10 @@ router.delete('/:id', blogFinder, tokenExtractor, async (req, res) => {
   const user = await User.findByPk(req.decodedToken.id)
   //console.log(user.id)
   //console.log(req.blog.userId)
+  if (user.disabled) {
+    throw new Error('Account disabled')
+  }
+
   if (req.blog.userId && req.blog.userId === user.id) {
     await req.blog.destroy()
     console.log('Blog was deleted')

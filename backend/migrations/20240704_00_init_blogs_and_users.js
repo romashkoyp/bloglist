@@ -53,6 +53,11 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false
       },
+      disabled: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+      },
       created_at: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -68,7 +73,7 @@ module.exports = {
     await queryInterface.addColumn('blogs', 'user_id', {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: { model: 'users', key: 'id' },
+      references: { model: 'users', key: 'id', onDelete: 'CASCADE' },
     })
   },
 
